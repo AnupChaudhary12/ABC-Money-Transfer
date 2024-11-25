@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Transaction Dashboard";
+    string userName = User.Identity.Name;
+}
+<br />
+Welcome <strong>@userName</strong>
+<br />
+<div class="container text-center mt-5">
+    <h1 class="display-4">Welcome to the Transaction Dashboard</h1>
+    <p class="lead">Manage your money transfers efficiently from here. Choose an option below to proceed:</p>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <a href="@Url.Action("CreateTransaction", "Transaction")" class="btn btn-success btn-lg mb-3">
+                <i class="fas fa-plus-circle"></i> Create Transaction
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@Url.Action("ShowAllCurrentExchangeRate", "Transaction")" class="btn btn-primary btn-lg mb-3">
+                <i class="fas fa-plus-circle"></i> Show All Current Exchange Rate
+            </a>
+        </div>
+       @if(User.IsInRole("admin")){
+            <div class="col-md-4">
+                <a href="@Url.Action("GenerateReport", "Transaction")" class="btn btn-info btn-lg mb-3">
+                    <i class="fas fa-file-alt"></i> Generate Report
+                </a>
+            </div>
+       }
+        @if (User.IsInRole("user"))
+        {
+            <div class="col-md-4">
+                <a href="@Url.Action("GenerateUserReport", "Transaction")" class="btn btn-info btn-lg mb-3">
+                    <i class="fas fa-file-alt"></i> Generate Report
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <p>© 2024 ABC Money Transfer. All rights reserved.</p>
+</div>

@@ -1,0 +1,10 @@
+﻿global using Microsoft.AspNetCore.Identity;
+global using ABC_Money_Transfer.Models.Domain;
+global using Newtonsoft.Json;
+global using ABC_Money_Transfer.Models.Dtos;
+global using static ABC_Money_Transfer.Utils.SD;
+global using ABC_Money_Transfer.Repositories.Interfaces;
+global using ABC_Money_Transfer.Utils;
+global using Microsoft.Extensions.Options;
+global using System.Net;
+global using System.Text;

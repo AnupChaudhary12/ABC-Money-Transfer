@@ -1,0 +1,53 @@
+﻿@model ABC_Money_Transfer.Models.Dtos.ResponseDto
+
+@{
+    ViewData["Title"] = "Current Exchange Rates";
+}
+
+<h2>Exchange Rates on @Model.Result?.Payload.FirstOrDefault()?.Date</h2>
+
+<form method="get" action="@Url.Action("ShowAllCurrentExchangeRate")">
+    <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" class="form-control" id="startDate" name="startDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input type="date" class="form-control" id="endDate" name="endDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+@if (Model.IsSuccess && Model.Result?.Payload != null && Model.Result.Payload.Any())
+{
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Buy Rate</th>
+                <th>Sell Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payload in Model.Result.Payload)
+            {
+                foreach (var rate in payload.Rates)
+                {
+                    <tr>
+                        <td>@rate.Currency.Name (@rate.Currency.Iso3)</td>
+                        <td>@rate.Buy</td>
+                        <td>@rate.Sell</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">
+        No exchange rates available for the selected date.
+    </div>
+}

@@ -1,0 +1,102 @@
+﻿@model List<GetTransactionDto>
+
+@{
+    ViewData["Title"] = "Transaction Report";
+}
+
+<h2>@ViewData["Title"]</h2>
+<form method="get" class="form-inline">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="senderName">Sender Name:</label>
+            <input type="text" class="form-control" id="senderName" name="senderName" value="@Context.Request.Query["senderName"]" />
+        </div>
+        <div class="form-group col-md-4">
+            <label for="receiverName">Receiver Name:</label>
+            <input type="text" class="form-control" id="receiverName" name="receiverName" value="@Context.Request.Query["receiverName"]" />
+        </div>
+        <div class="form-group col-md-4">
+            <label for="senderCountry">Sender Country:</label>
+            <input type="text" class="form-control" id="senderCountry" name="senderCountry" value="@Context.Request.Query["senderCountry"]" />
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="startDate">Start Date:</label>
+            <input type="date" class="form-control" id="startDate" name="startDate" value="@Context.Request.Query["startDate"]" />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="endDate">End Date:</label>
+            <input type="date" class="form-control" id="endDate" name="endDate" value="@Context.Request.Query["endDate"]" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <h3>Transaction List</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Sender Name</th>
+                <th>Receiver Name</th>
+                <th>Transfer Amount </th>
+                <th>Exchange Rate</th>
+                <th>Payout Amount</th>
+                <th>Bank Name</th>
+                <th>Account Number</th>
+                <th>Sender Country</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>@transaction.TransactionId</td>
+                    <td>@($"{transaction.SenderFirstName} {transaction.SenderLastName}")</td>
+                    <td>@($"{transaction.ReceiverFirstName} {transaction.ReceiverLastName}")</td>
+                    <td>@transaction.TransferAmount</td>
+                    <td>@transaction.ExchangeRate</td>
+                    <td>@transaction.PayoutAmount</td>
+                    <td>@transaction.BankName</td>
+                    <td>@transaction.AccountNumber</td>
+                    <td>@transaction.SenderCountry</td>
+                    <td>@transaction.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form method="post" action="@Url.Action("GenerateExcelReport")" class="mt-3">
+        <input type="hidden" name="senderName" value="@Context.Request.Query["senderName"]" />
+        <input type="hidden" name="receiverName" value="@Context.Request.Query["receiverName"]" />
+        <input type="hidden" name="senderCountry" value="@Context.Request.Query["senderCountry"]" />
+        <input type="hidden" name="startDate" value="@Context.Request.Query["startDate"]" />
+        <input type="hidden" name="endDate" value="@Context.Request.Query["endDate"]" />
+
+        <button type="submit" class="btn btn-success">Generate Excel</button>
+    </form>
+}
+else
+{
+    <div class="alert alert-warning mt-3">No transactions found for the selected filters.</div>
+}
+
+<style>
+    .table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+</style>

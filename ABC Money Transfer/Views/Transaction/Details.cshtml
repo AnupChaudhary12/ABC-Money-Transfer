@@ -1,0 +1,34 @@
+﻿@model Transaction
+
+@{
+    ViewData["Title"] = "Transaction Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        Transaction ID: @Model.TransactionId
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Sender Information</h4>
+        <p><strong>Name:</strong> @($"{Model.SenderFirstName} {Model.SenderMiddleName} {Model.SenderLastName}")</p>
+        <p><strong>Address:</strong> @Model.SenderAddress</p>
+        <p><strong>Country:</strong> @Model.SenderCountry</p>
+
+        <h4 class="card-title mt-4">Receiver Information</h4>
+        <p><strong>Name:</strong> @($"{Model.ReceiverFirstName} {Model.ReceiverMiddleName} {Model.ReceiverLastName}")</p>
+        <p><strong>Address:</strong> @Model.ReceiverAddress</p>
+        <p><strong>Country:</strong> @Model.ReceiverCountry</p>
+
+        <h4 class="card-title mt-4">Transaction Details</h4>
+        <p><strong>Transfer Amount:</strong> @Model.TransferAmount</p>
+        <p><strong>Exchange Rate:</strong> @Model.ExchangeRate</p>
+        <p><strong>Payout Amount:</strong> @Model.PayoutAmount</p>
+        <p><strong>Bank Name:</strong> @Model.BankName</p>
+        <p><strong>Account Number:</strong> @Model.AccountNumber</p>
+        <p><strong>Created At:</strong> @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Transaction Page</a>

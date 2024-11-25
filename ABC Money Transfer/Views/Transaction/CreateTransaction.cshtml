@@ -1,0 +1,100 @@
+﻿@model ABC_Money_Transfer.Models.Dtos.TransactionDto
+
+@{
+    ViewData["Title"] = "Create Transaction";
+}
+
+<h2>Create Transaction</h2>
+
+<form asp-action="CreateTransaction" method="post">
+    <div class="form-group">
+        <label for="SenderFirstName">Sender First Name</label>
+        <input type="text" class="form-control" id="SenderFirstName" name="SenderFirstName" value="@Model.SenderFirstName" required />
+    </div>
+    <div class="form-group">
+        <label for="SenderMiddleName">Sender Middle Name</label>
+        <input type="text" class="form-control" id="SenderMiddleName" name="SenderMiddleName" value="@Model.SenderMiddleName" />
+    </div>
+    <div class="form-group">
+        <label for="SenderLastName">Sender Last Name</label>
+        <input type="text" class="form-control" id="SenderLastName" name="SenderLastName" value="@Model.SenderLastName" required />
+    </div>
+    <div class="form-group">
+        <label for="SenderAddress">Sender Address</label>
+        <input type="text" class="form-control" id="SenderAddress" name="SenderAddress" value="@Model.SenderAddress" />
+    </div>
+<div class="form-group">
+    <label for="SenderCountry">Sender Country</label>
+    <select class="form-control" id="SenderCountry" name="SenderCountry">
+        <option value="India">India</option>
+        <option value="UnitedStates" >United States</option>
+        <option value="EuropeanUnion" >European Union</option>
+        <option value="UnitedKingdom">United Kingdom</option>
+        <option value="Switzerland")>Switzerland</option>
+        <option value="Australia">Australia</option>
+        <option value="Canada" >Canada</option>
+        <option value="Singapore" >Singapore</option>
+        <option value="Japan" >Japan</option>
+        <option value="China">China</option>
+        <option value="SaudiArabia" >Saudi Arabia</option>
+        <option value="Qatar">Qatar</option>
+        <option value="Thailand">Thailand</option>
+        <option value="UAE">UAE</option>
+        <option value="Malaysia" >Malaysia</option>
+        <option value="SouthKorea" >South Korea</option>
+        <option value="Sweden" >Sweden</option>
+        <option value="Denmark" >Denmark</option>
+        <option value="HongKong">Hong Kong</option>
+        <option value="Kuwait" >Kuwait</option>
+        <option value="Bahrain" >Bahrain</option>
+        <option value="Oman" >Oman</option>
+    </select>
+</div>
+
+
+    <div class="form-group">
+        <label for="ReceiverCountry">Receiver Country</label>
+        <select class="form-control" id="ReceiverCountry" name="ReceiverCountry">
+            <option value="Nepal" selected>Nepal</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ReceiverFirstName">Receiver First Name</label>
+        <input type="text" class="form-control" id="ReceiverFirstName" name="ReceiverFirstName" value="@Model.ReceiverFirstName" required />
+    </div>
+    <div class="form-group">
+        <label for="ReceiverMiddleName">Receiver Middle Name</label>
+        <input type="text" class="form-control" id="ReceiverMiddleName" name="ReceiverMiddleName" value="@Model.ReceiverMiddleName" />
+    </div>
+    <div class="form-group">
+        <label for="ReceiverLastName">Receiver Last Name</label>
+        <input type="text" class="form-control" id="ReceiverLastName" name="ReceiverLastName" value="@Model.ReceiverLastName" required />
+    </div>
+    <div class="form-group">
+        <label for="ReceiverAddress">Receiver Address</label>
+        <input type="text" class="form-control" id="ReceiverAddress" name="ReceiverAddress" value="@Model.ReceiverAddress" />
+    </div>
+
+    <div class="form-group">
+        <label for="TransferAmountMYR">Transfer Amount</label>
+        <input type="number" class="form-control" id="TransferAmountMYR" name="TransferAmountMYR" value="@Model.TransferAmountMYR" required />
+    </div>
+
+    <div class="form-group">
+        <label for="BankName">Bank Name</label>
+        <input type="text" class="form-control" id="BankName" name="BankName" value="@Model.BankName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="AccountNumber">Account Number</label>
+        <input type="text" class="form-control" id="AccountNumber" name="AccountNumber" value="@Model.AccountNumber" required />
+    </div>
+    </br>
+    <button type="submit" class="btn btn-primary">Submit Transaction</button>
+</form>
+
+@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+{
+    <div class="alert alert-danger mt-3">@error.ErrorMessage</div>
+}
